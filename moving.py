@@ -59,19 +59,16 @@ def RESET_PRESSED():
 def UP():
     global ForwardColor
     cyberpi.led.show(ForwardColor)
-    while True:
-        if (mbuild.ultrasonic2.get(1) >= 300):
+    if (mbuild.ultrasonic2.get(1) >= 300):
+        output("Moving forward", 24, "center", index=0)
+        mbot2.forward(50)
+    else:
+        if mbuild.ultrasonic2.get(1) < 50:
+            output("Moving 90*", 24, "center", index=0)
+            mbot2.turn(-90)
+        else:
             output("Moving forward", 24, "center", index=0)
             mbot2.forward(50)
-        else:
-            if mbuild.ultrasonic2.get(1) < 50:
-                output("Moving 90*", 24, "center", index=0)
-                mbot2.turn(-90)
-
-            else:
-                output("Moving forward", 24, "center", index=0)
-
-                mbot2.forward(50)
 
 
 # Move the robot backwards
