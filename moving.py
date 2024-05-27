@@ -50,25 +50,27 @@ def help():
 def RESET_PRESSED():
     output("RESETTING", 24, "center", index=0)
     cyberpi.led.play('flash_orange')
-    play('side-stick', 0.25)
-    time.sleep(0.5)
     cyberpi.restart()
+    play('side-stick', 0.25)
+
 
 # Move the robot forward
 @event.is_press('up')
 def UP():
     global ForwardColor
     cyberpi.led.show(ForwardColor)
-    if (mbuild.ultrasonic2.get(1) >= 300):
-        output("Moving forward", 24, "center", index=0)
-        mbot2.forward(50)
-    else:
-        if mbuild.ultrasonic2.get(1) < 50:
-            output("Moving 90*", 24, "center", index=0)
-            mbot2.turn(-90)
-        else:
+    while True:
+        if (mbuild.ultrasonic2.get(1) >= 300):
             output("Moving forward", 24, "center", index=0)
             mbot2.forward(50)
+        else:
+            if mbuild.ultrasonic2.get(1) <= 50:
+                print(output)
+                output("Moving 90*", 24, "center", index=0)
+                mbot2.turn(90)
+            else:
+                output("Moving forward", 24, "center", index=0)
+                mbot2.forward(50)
 
 
 # Move the robot backwards
