@@ -3,10 +3,23 @@ import time
 import cyberpi
 import mbot2
 import mbuild
+import random
 
 # initialize variables
 moving_list_list = []
 Count = 10
+#text size
+small = 10
+middle = 40
+big = 80
+
+#list of speeds for run
+slow = 25
+middem = 50
+fast = 100
+SuperFast = 150
+
+
 
 HelpList = '''To use the code.
 You can use the JoyStick to move the robot.
@@ -48,8 +61,8 @@ def help():
 # Resetting the robot
 @event.is_press('b')
 def RESET_PRESSED():
-    output("RESETTING", 24, "center", index=0)
-    cyberpi.led.play('flash_orange')
+    output("RESETTING", big,"center", index=0)
+    cyberpi.led.play('flash_orange ')
     cyberpi.restart()
     play('side-stick', 0.25)
 
@@ -62,15 +75,13 @@ def UP():
     while True:
         if (mbuild.ultrasonic2.get(1) >= 300):
             output("Moving forward", 24, "center", index=0)
-            mbot2.forward(50)
+            move.forward(fast)
         else:
             if mbuild.ultrasonic2.get(1) <= 50:
-                print(output)
-                output("Moving 90*", 24, "center", index=0)
-                mbot2.turn(90)
+                move.turn(90)
             else:
                 output("Moving forward", 24, "center", index=0)
-                mbot2.forward(50)
+                move.forward(fast)
 
 
 # Move the robot backwards
